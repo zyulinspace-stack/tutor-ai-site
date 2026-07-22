@@ -1,0 +1,20 @@
+---
+import { getCollection } from 'astro:content';
+interface Props { hub: 'dlya-repetitorov' | 'dlya-roditelej' | 'ege' | 'oge' }
+const { hub } = Astro.props;
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.hub === hub))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+{posts.length > 0 ? (
+  <div class="grid grid-2" style="margin-top:24px">
+    {posts.map((p) => (
+      <a class="article-card" href={`/blog/${p.id}`}>
+        <span class="tag">{p.data.cluster}</span>
+        <div class="t">{p.data.title}</div>
+        <div class="d">{p.data.description}</div>
+      </a>
+    ))}
+  </div>
+) : (
+  <p class="muted">Материалы раздела готовятся — первые выйдут на этой неделе.</p>
+)}

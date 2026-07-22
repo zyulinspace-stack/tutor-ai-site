@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import HubPosts from '../components/HubPosts.astro';
+import CtaBox from '../components/CtaBox.astro';
+---
+<Base
+  title="Подготовка к ОГЭ — математика и физика: разборы заданий 1–25 | Тьютор AI"
+  description="Хаб подготовки к ОГЭ: разборы всех заданий по математике и физике, практико-ориентированные задачи, геометрия части 2, типичные ошибки девятиклассников."
+  crumbs={[{ name: 'Главная', href: '/' }, { name: 'ОГЭ', href: '/oge' }]}
+>
+  <div class="wrap section">
+    <h1>Подготовка к ОГЭ</h1>
+    <p class="lead muted" style="max-width:700px">
+      Все задания ОГЭ по математике и физике: метод решения, разобранные примеры и задачи для отработки.
+      Отдельно — практико-ориентированный блок 1–5, на котором сыпется каждый второй девятиклассник.
+    </p>
+    <h2>Свежие материалы</h2>
+    <HubPosts hub="oge" />
+    <CtaBox variant="student" />
+  </div>
+</Base>

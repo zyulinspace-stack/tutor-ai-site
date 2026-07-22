@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import HubPosts from '../components/HubPosts.astro';
+import CtaBox from '../components/CtaBox.astro';
+---
+<Base
+  title="Подготовка к ЕГЭ — математика и физика: разборы заданий и темы | Тьютор AI"
+  description="Хаб подготовки к ЕГЭ: разборы заданий по номерам (математика профиль и база, физика), темы кодификатора, типичные ошибки, шпаргалки с формулами."
+  crumbs={[{ name: 'Главная', href: '/' }, { name: 'ЕГЭ', href: '/ege' }]}
+>
+  <div class="wrap section">
+    <h1>Подготовка к ЕГЭ</h1>
+    <p class="lead muted" style="max-width:700px">
+      Разборы заданий по номерам, темы кодификатора и типичные ошибки, на которых теряют баллы.
+      Каждый материал — с методом решения и задачами для отработки.
+    </p>
+    <h2>Структура раздела</h2>
+    <div class="grid grid-3" style="margin-top:16px">
+      <div class="card"><h3>Математика (профиль)</h3><p class="muted">Задания 1–19: как решать, ошибки, задачи с ответами, критерии части 2.</p></div>
+      <div class="card"><h3>Математика (база)</h3><p class="muted">Задания 1–21 с примерами и отработкой.</p></div>
+      <div class="card"><h3>Физика</h3><p class="muted">Задания по номерам и темы: от кинематики до ядерной физики.</p></div>
+    </div>
+    <h2>Свежие материалы</h2>
+    <HubPosts hub="ege" />
+    <CtaBox variant="student" />
+  </div>
+</Base>

@@ -1,0 +1,283 @@
+---
+import '@fontsource-variable/unbounded';
+import '@fontsource-variable/onest';
+import '@fontsource-variable/caveat';
+import { SITE_NAME, SITE_URL, SITE_DESCRIPTION, EARLY_ACCESS_URL } from '../config.js';
+
+interface Crumb { name: string; href: string }
+interface Props {
+  title: string;
+  description?: string;
+  crumbs?: Crumb[];
+  /** Дополнительный JSON-LD страницы (Article, FAQ и т.п.) */
+  schema?: object | object[];
+  ogType?: string;
+}
+const { title, description = SITE_DESCRIPTION, crumbs = [], schema, ogType = 'website' } = Astro.props;
+
+const canonical = new URL(Astro.url.pathname, SITE_URL).href.replace(/\/$/, '') || SITE_URL;
+
+const baseSchema: object[] = [
+  { '@context': 'https://schema.org', '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+  { '@context': 'https://schema.org', '@type': 'WebSite', name: SITE_NAME, url: SITE_URL },
+];
+if (crumbs.length) {
+  baseSchema.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: crumbs.map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.name,
+      item: new URL(c.href, SITE_URL).href,
+    })),
+  });
+}
+const allSchema = schema ? baseSchema.concat(Array.isArray(schema) ? schema : [schema]) : baseSchema;
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="ru_RU" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="theme-color" content="#f3f4f6" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <script type="application/ld+json" set:html={JSON.stringify(allSchema)} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap header-in">
+        <a class="logo" href="/"><span class="logo-mark">Т</span>Тьютор AI</a>
+        <nav class="nav">
+          <a href="/dlya-repetitorov">Репетиторам</a>
+          <a href="/dlya-roditelej">Родителям</a>
+          <a href="/ege">ЕГЭ</a>
+          <a href="/oge">ОГЭ</a>
+          <a href="/blog">Блог</a>
+        </nav>
+        <a class="btn btn-sm" href={EARLY_ACCESS_URL}>Ранний доступ</a>
+      </div>
+    </header>
+
+    {crumbs.length > 0 && (
+      <div class="wrap">
+        <nav class="crumbs" aria-label="Хлебные крошки">
+          {crumbs.map((c, i) => (
+            <>
+              {i > 0 && <span class="crumb-sep">/</span>}
+              {i < crumbs.length - 1 ? <a href={c.href}>{c.name}</a> : <span>{c.name}</span>}
+            </>
+          ))}
+        </nav>
+      </div>
+    )}
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-in">
+        <div>
+          <div class="logo logo-f"><span class="logo-mark">Т</span>Тьютор AI</div>
+          <p class="f-muted">Инструмент репетитора: AI-проверка ДЗ за минуты, сократовский диалог с учеником, отчёт родителю — автоматически.</p>
+        </div>
+        <div>
+          <div class="f-h">Разделы</div>
+          <a href="/dlya-repetitorov">Репетиторам</a>
+          <a href="/dlya-roditelej">Родителям</a>
+          <a href="/ege">Подготовка к ЕГЭ</a>
+          <a href="/oge">Подготовка к ОГЭ</a>
+          <a href="/blog">Блог</a>
+        </div>
+        <div>
+          <div class="f-h">Проект</div>
+          <a href={EARLY_ACCESS_URL}>Ранний доступ</a>
+          <a href="/#tarify">Тарифы</a>
+          <a href="/#faq">Вопросы и ответы</a>
+        </div>
+      </div>
+      <div class="wrap f-bottom">© 2026 {SITE_NAME}</div>
+    </footer>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --ink: #0d0e12;
+    --ink-2: #575b66;
+    --ink-3: #9aa0ad;
+    --blue: #3b76f6;
+    --blue-dark: #2b5fd6;
+    --lime: #c6f24e;
+    --pink: #f875d7;
+    --bg: #f3f4f6;
+    --card: #ffffff;
+    --line: #e4e6eb;
+    --good: #1f9d55;
+    --warn: #d97706;
+    --bad: #dc2626;
+    --r: 28px;
+    --r-sm: 16px;
+    --max: 1160px;
+    --head: 'Unbounded Variable', 'Arial Black', sans-serif;
+    --body: 'Onest Variable', -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --hand: 'Caveat Variable', cursive;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; color: var(--ink); background: var(--bg);
+    font-family: var(--body); font-size: 17px; line-height: 1.62;
+    -webkit-font-smoothing: antialiased;
+  }
+  .dots {
+    background-image: radial-gradient(circle, #d7dae1 1.2px, transparent 1.2px);
+    background-size: 26px 26px;
+  }
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 0 24px; }
+  a { color: var(--blue-dark); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  h1, h2 { font-family: var(--head); font-weight: 700; letter-spacing: -0.01em; }
+  h1 { font-size: 52px; line-height: 1.06; margin: 0 0 24px; }
+  h2 { font-size: 34px; line-height: 1.12; margin: 0 0 16px; }
+  h3 { font-size: 19px; font-weight: 700; margin: 20px 0 8px; }
+  p { margin: 0 0 14px; }
+  .muted { color: var(--ink-2); }
+  .eyebrow {
+    display: inline-block; font-family: var(--head); font-size: 12px; font-weight: 600;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--blue); margin-bottom: 16px;
+  }
+
+  /* ---------- header ---------- */
+  .site-header { position: sticky; top: 0; background: rgba(243,244,246,.92); backdrop-filter: blur(10px); z-index: 50; border-bottom: 1px solid var(--line); }
+  .header-in { display: flex; align-items: center; gap: 28px; height: 72px; }
+  .logo { display: flex; align-items: center; font-family: var(--head); font-weight: 700; font-size: 17px; color: var(--ink); }
+  .logo:hover { text-decoration: none; }
+  .logo-mark {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; margin-right: 12px; border-radius: 12px;
+    background: var(--blue); color: #fff; font-size: 18px;
+  }
+  .nav { display: flex; gap: 26px; flex: 1; flex-wrap: wrap; }
+  .nav a { color: var(--ink); font-size: 15.5px; font-weight: 500; }
+  .nav a:hover { color: var(--blue-dark); text-decoration: none; }
+
+  /* ---------- buttons: плоские, как у референса ---------- */
+  .btn {
+    display: inline-block; background: var(--blue); color: #fff !important;
+    padding: 16px 32px; border-radius: 12px; font-weight: 600; font-size: 16px;
+    border: none; cursor: pointer; transition: background .15s ease;
+  }
+  .btn:hover { background: var(--blue-dark); text-decoration: none; }
+  .btn-sm { padding: 11px 20px; font-size: 14.5px; border-radius: 10px; }
+  .btn-ghost { background: #fff; color: var(--ink) !important; border: 1.5px solid var(--ink); }
+  .btn-ghost:hover { background: var(--ink); color: #fff !important; }
+  .btn-light { background: #fff; color: var(--ink) !important; }
+  .btn-light:hover { background: var(--lime); }
+
+  .crumbs { font-size: 13.5px; color: var(--ink-3); padding: 18px 0 0; }
+  .crumbs a { color: var(--ink-2); }
+  .crumb-sep { margin: 0 8px; color: #c3c7d1; }
+
+  /* ---------- секции ---------- */
+  .section { padding: 72px 0; }
+  .sec-head { max-width: 720px; margin-bottom: 40px; }
+  .grid { display: grid; gap: 18px; }
+  .grid-3 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+  .grid-2 { grid-template-columns: repeat(2, 1fr); }
+  @media (max-width: 760px) { .grid-2 { grid-template-columns: 1fr; } }
+  .card { background: var(--card); border-radius: var(--r); padding: 32px; }
+  .card h3 { margin-top: 16px; font-size: 20px; }
+  .bignum { font-family: var(--head); font-size: 40px; font-weight: 700; color: var(--blue); line-height: 1; }
+  .icon { display: inline-flex; width: 52px; height: 52px; align-items: center; justify-content: center; border-radius: 16px; }
+  .icon svg { width: 26px; height: 26px; }
+  .icon-blue { background: #e8efff; color: var(--blue); }
+  .icon-lime { background: #f1fbd8; color: #5a8a00; }
+  .icon-pink { background: #fdeaf8; color: #c73da8; }
+  .icon-ink { background: #ececef; color: var(--ink); }
+
+  /* чёрные пилюли-лейблы, как «Учитель/Ученик» в референсе */
+  .pill-black {
+    display: inline-block; background: var(--ink); color: #fff;
+    font-size: 14px; font-weight: 600; padding: 8px 16px; border-radius: 12px;
+  }
+  .chip {
+    display: inline-flex; align-items: center; gap: 8px; background: #fff;
+    border-radius: 999px; padding: 8px 16px; font-size: 13.5px; font-weight: 600;
+    box-shadow: 0 6px 24px rgba(13,14,18,.10);
+  }
+
+  /* ---------- тарифы ---------- */
+  .price { position: relative; display: flex; flex-direction: column; }
+  .price.featured { outline: 3px solid var(--blue); outline-offset: -3px; }
+  .price .hit { position: absolute; top: 24px; right: 24px; }
+  .price h3 { margin-top: 0; font-family: var(--head); font-size: 17px; }
+  .price .amount { font-family: var(--head); font-size: 34px; font-weight: 700; margin: 10px 0 2px; }
+  .price .amount small { font-size: 15px; color: var(--ink-2); font-family: var(--body); font-weight: 600; }
+  .price ul { padding: 0; list-style: none; margin: 20px 0 24px; flex: 1; }
+  .price li { padding: 6px 0 6px 28px; position: relative; font-size: 15.5px; color: var(--ink-2); }
+  .price li::before { content: ''; position: absolute; left: 0; top: 12px; width: 14px; height: 14px; border-radius: 4px; background: var(--lime); }
+
+  /* ---------- faq ---------- */
+  details { background: var(--card); border-radius: var(--r-sm); padding: 20px 26px; margin-bottom: 12px; }
+  details summary { font-weight: 700; font-size: 17px; cursor: pointer; list-style: none; position: relative; padding-right: 36px; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: '+'; position: absolute; right: 0; top: -4px; font-size: 26px; font-weight: 500; color: var(--blue); transition: transform .2s; }
+  details[open] summary::after { transform: rotate(45deg); }
+  details p { margin: 12px 0 0; }
+
+  /* ---------- блог ---------- */
+  .article-card {
+    display: block; background: var(--card); border-radius: var(--r); padding: 30px;
+    color: var(--ink); transition: transform .16s ease;
+  }
+  .article-card:hover { transform: translateY(-3px); text-decoration: none; }
+  .article-card .t { font-weight: 800; font-size: 19px; margin-bottom: 8px; line-height: 1.32; }
+  .article-card .d { color: var(--ink-2); font-size: 15px; }
+  .tag { display: inline-block; font-size: 12.5px; font-weight: 700; color: var(--blue-dark); background: #e8efff; border-radius: 8px; padding: 4px 12px; margin-bottom: 14px; }
+
+  .prose { max-width: 740px; }
+  .prose h1 { font-size: 36px; }
+  .prose h2 { font-size: 25px; margin-top: 44px; }
+  .prose img { max-width: 100%; border-radius: 16px; }
+  .prose blockquote { border-left: 3px solid var(--blue); margin: 18px 0; padding: 4px 0 4px 18px; color: var(--ink-2); }
+  .prose table { border-collapse: collapse; width: 100%; margin: 16px 0; font-size: 15px; background: #fff; border-radius: 12px; }
+  .prose th, .prose td { border: 1px solid var(--line); padding: 8px 12px; text-align: left; }
+  .prose th { background: var(--bg); }
+  .prose code { background: #e9ebef; padding: 1px 6px; border-radius: 5px; font-size: 14.5px; }
+
+  .cta-box { background: var(--blue); color: #fff; border-radius: var(--r); padding: 40px; margin: 44px 0; }
+  .cta-box h2, .cta-box h3 { color: #fff; margin-top: 0; }
+  .cta-box .muted { color: #cfdcff; }
+  .cta-box .btn { background: #fff; color: var(--ink) !important; margin-top: 12px; }
+  .cta-box .btn:hover { background: var(--lime); }
+
+  /* ---------- footer ---------- */
+  .site-footer { background: #fff; margin-top: 96px; padding: 56px 0 0; border-top: 1px solid var(--line); }
+  .footer-in { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 40px; padding-bottom: 28px; }
+  .footer-in a { display: block; color: var(--ink-2); font-size: 15px; padding: 4px 0; }
+  .footer-in a:hover { color: var(--ink); text-decoration: none; }
+  .f-h { font-family: var(--head); font-weight: 600; font-size: 12.5px; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 12px; }
+  .f-muted { font-size: 15px; max-width: 340px; color: var(--ink-2); }
+  .logo-f { margin-bottom: 14px; }
+  .f-bottom { border-top: 1px solid var(--line); padding-top: 18px; padding-bottom: 28px; font-size: 13.5px; color: var(--ink-3); }
+
+  @media (max-width: 900px) {
+    h1 { font-size: 34px; }
+    h2 { font-size: 26px; }
+    .footer-in { grid-template-columns: 1fr; gap: 24px; }
+    .nav { gap: 14px; }
+    .nav a { font-size: 14px; }
+  }
+</style>

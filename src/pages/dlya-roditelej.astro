@@ -1,0 +1,21 @@
+---
+import Base from '../layouts/Base.astro';
+import HubPosts from '../components/HubPosts.astro';
+import CtaBox from '../components/CtaBox.astro';
+---
+<Base
+  title="Родителям — как выбрать репетитора и контролировать прогресс | Тьютор AI"
+  description="Хаб для родителей: как выбрать репетитора по математике и физике, сколько это стоит, как понять, что занятия работают, и что делать, если ребёнок списывает у нейросетей."
+  crumbs={[{ name: 'Главная', href: '/' }, { name: 'Родителям', href: '/dlya-roditelej' }]}
+>
+  <div class="wrap section">
+    <h1>Родителям</h1>
+    <p class="lead muted" style="max-width:700px">
+      Вы платите за занятия — и имеете право видеть прогресс, а не догадываться о нём.
+      Здесь — как выбирать репетитора, какие вопросы задавать и по каким признакам понять, что деньги работают.
+    </p>
+    <h2>Свежие материалы</h2>
+    <HubPosts hub="dlya-roditelej" />
+    <CtaBox variant="report" />
+  </div>
+</Base>

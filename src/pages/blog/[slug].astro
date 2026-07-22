@@ -1,0 +1,59 @@
+---
+import Base from '../../layouts/Base.astro';
+import CtaBox from '../../components/CtaBox.astro';
+import { getCollection, render } from 'astro:content';
+import { SITE_NAME, SITE_URL } from '../../config.js';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const hubNames = {
+  'dlya-repetitorov': 'Репетиторам',
+  'dlya-roditelej': 'Родителям',
+  ege: 'ЕГЭ',
+  oge: 'ОГЭ',
+};
+const hubHref = `/${post.data.hub}`;
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.data.title,
+  description: post.data.description,
+  datePublished: post.data.date.toISOString(),
+  dateModified: (post.data.updated ?? post.data.date).toISOString(),
+  author: { '@type': 'Person', name: post.data.author },
+  publisher: { '@type': 'Organization', name: SITE_NAME, url: SITE_URL },
+  mainEntityOfPage: new URL(`/blog/${post.id}`, SITE_URL).href,
+  inLanguage: 'ru-RU',
+};
+---
+<Base
+  title={`${post.data.title} — ${SITE_NAME}`}
+  description={post.data.description}
+  ogType="article"
+  schema={articleSchema}
+  crumbs={[
+    { name: 'Главная', href: '/' },
+    { name: hubNames[post.data.hub], href: hubHref },
+    { name: post.data.title, href: `/blog/${post.id}` },
+  ]}
+>
+  <article class="wrap section">
+    <div class="prose">
+      <span class="tag">{post.data.cluster}</span>
+      <h1>{post.data.title}</h1>
+      <p class="muted" style="font-size:15px">
+        {post.data.author} · {post.data.date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'long', year: 'numeric' })}
+      </p>
+      <Content />
+      <CtaBox variant={post.data.cta} />
+      <p><a href={hubHref}>← Все материалы раздела «{hubNames[post.data.hub]}»</a></p>
+    </div>
+  </article>
+</Base>

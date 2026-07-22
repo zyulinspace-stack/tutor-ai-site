@@ -1,0 +1,28 @@
+---
+import { EARLY_ACCESS_URL, LAUNCH_NOTE } from '../config.js';
+interface Props { variant?: 'trial' | 'report' | 'student' }
+const { variant = 'trial' } = Astro.props;
+const content = {
+  trial: {
+    h: 'Проверяйте ДЗ за минуты, а не вечерами',
+    p: 'Тьютор AI разбирает рукописные работы по критериям ФИПИ, классифицирует ошибки и готовит фидбек. Вы только просматриваете и жмёте «отправить».',
+    btn: 'Получить ранний доступ',
+  },
+  report: {
+    h: 'Отчёт о прогрессе — каждую неделю, автоматически',
+    p: 'Карта тем «зелёный/жёлтый/красный», динамика балла и активность между занятиями — родителю в Telegram. Без единого сообщения вручную.',
+    btn: 'Получить ранний доступ',
+  },
+  student: {
+    h: 'Застрял на задаче? Разберись, а не списывай',
+    p: 'Тьютор AI ведёт к решению наводящими вопросами — как сильный репетитор. Поймёшь сам — запомнишь навсегда.',
+    btn: 'Попробовать первым',
+  },
+}[variant];
+---
+<aside class="cta-box">
+  <h3 style="margin-top:0">{content.h}</h3>
+  <p class="muted">{content.p}</p>
+  <p class="muted" style="font-size:14px">{LAUNCH_NOTE}</p>
+  <a class="btn" href={EARLY_ACCESS_URL}>{content.btn}</a>
+</aside>

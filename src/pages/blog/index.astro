@@ -1,0 +1,26 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+<Base
+  title="Блог Тьютор AI — практика репетиторства, AI-инструменты, подготовка к ЕГЭ и ОГЭ"
+  description="Статьи для репетиторов и родителей: как проверять ДЗ быстрее, нейросети в преподавании, методика, подготовка к экзаменам."
+  crumbs={[{ name: 'Главная', href: '/' }, { name: 'Блог', href: '/blog' }]}
+>
+  <div class="wrap section">
+    <h1>Блог</h1>
+    <p class="lead muted">Практика репетиторства, AI-инструменты и подготовка к экзаменам — без воды.</p>
+    <div class="grid grid-2" style="margin-top:28px">
+      {posts.map((p) => (
+        <a class="article-card" href={`/blog/${p.id}`}>
+          <span class="tag">{p.data.cluster}</span>
+          <div class="t">{p.data.title}</div>
+          <div class="d">{p.data.description}</div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Base>

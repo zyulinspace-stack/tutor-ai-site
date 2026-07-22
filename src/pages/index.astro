@@ -1,0 +1,426 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE_NAME, EARLY_ACCESS_URL, LAUNCH_NOTE } from '../config.js';
+
+const faq = [
+  {
+    q: 'AI и так помогает ученикам списывать. Чем вы отличаетесь?',
+    a: 'Тем, что мы на стороне репетитора. В чате с учеником Тьютор AI никогда не выдаёт готовое решение до проверки работы — только наводящие вопросы, как сильный преподаватель. А в проверке ДЗ он помечает работы, похожие на списанные у нейросети.',
+  },
+  {
+    q: 'Насколько можно доверять AI-проверке?',
+    a: 'Каждая работа разбирается по критериям, как на экзамене. Работы, в которых модель не уверена, попадают в отдельную очередь «нужен ваш взгляд» — вы всегда видите, где решение приняла машина, а где нужно ваше слово. Последнее слово всегда за репетитором.',
+  },
+  {
+    q: 'Какие предметы поддерживаются?',
+    a: 'На старте — математика (ОГЭ и ЕГЭ, база и профиль). Следом — физика. Мы сознательно начинаем с одного предмета, чтобы качество проверки было эталонным, а не «более-менее по всем».',
+  },
+  {
+    q: 'Сколько это стоит?',
+    a: 'Базовые функции — бесплатно навсегда. AI-проверка и сократовский чат — от 990 ₽ в месяц (до 10 учеников), первый месяц — 149 ₽. Это меньше стоимости одного вашего занятия.',
+  },
+  {
+    q: 'Когда запуск?',
+    a: 'Сентябрь 2026 — к началу учебного года. Первым 100 репетиторам из списка раннего доступа — 3 месяца тарифа «Про» бесплатно и прямая линия с командой.',
+  },
+];
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+<Base
+  title={`${SITE_NAME} — AI-проверка домашних заданий для репетиторов за 5 минут`}
+  description="Проверка рукописных ДЗ по математике и физике за минуты, сократовский диалог с учеником вместо готовых ответов и автоматический отчёт родителю. Инструмент репетитора, который экономит вечера."
+  schema={faqSchema}
+>
+  <section class="hero dots">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Проверка ДЗ за&nbsp;5&nbsp;минут. Отчёт родителю&nbsp;— пока вы спите</h1>
+        <p class="lead">
+          Тьютор AI читает рукописные решения по фото, разбирает их по критериям ФИПИ
+          и готовит фидбек каждому ученику. Ученику — наводящие вопросы вместо готовых ответов.
+          Родителю — еженедельный отчёт. Вам — свободные вечера.
+        </p>
+        <div class="cta-row">
+          <a class="btn" href={EARLY_ACCESS_URL}>Попробовать</a>
+          <span class="launch-note">Запуск — сентябрь 2026.<br/>Первым 100 репетиторам — 3&nbsp;месяца «Про» бесплатно.</span>
+        </div>
+      </div>
+
+      <div class="collage">
+        <div class="sheet sheet-lime">
+          <span class="hand hand-formula">sin&thinsp;x&nbsp;=&nbsp;−½</span>
+          <svg class="doodle" viewBox="0 0 120 120" fill="none" stroke="#0d0e12" stroke-width="2.5" stroke-linecap="round">
+            <circle cx="60" cy="60" r="44"/>
+            <line x1="8" y1="60" x2="112" y2="60"/>
+            <line x1="60" y1="8" x2="60" y2="112"/>
+            <line x1="60" y1="60" x2="96" y2="34"/>
+            <path d="M74 60 A16 16 0 0 0 72 51"/>
+          </svg>
+        </div>
+        <div class="sheet sheet-blue">
+          <div class="check-card">
+            <div class="cc-head">
+              <span>Разбор работы · Задание 13</span>
+              <span class="cc-badge">2:47</span>
+            </div>
+            <div class="cc-row"><i class="ok"></i>Сведено к квадратному относительно sin&thinsp;x</div>
+            <div class="cc-row"><i class="ok"></i>Корни на промежутке отобраны верно</div>
+            <div class="cc-row"><i class="half"></i>Не обоснован отбор — эксперт снимет балл</div>
+            <div class="cc-score"><span>Балл по критериям</span><b>1 из 2</b></div>
+          </div>
+          <span class="hand hand-white">x&nbsp;=&nbsp;−π/6&nbsp;+&nbsp;2πn</span>
+        </div>
+        <span class="ava ava-tutor"><img src="/img/tutor.webp" alt="Репетитор" width="96" height="96" loading="eager" /></span>
+        <span class="ava ava-student"><img src="/img/student.webp" alt="Ученица" width="112" height="112" loading="eager" /></span>
+        <span class="pill-black tag-tutor">Репетитор
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="#fff" style="margin-left:6px"><path d="M1 1l5 12 2-5 5-2L1 1z"/></svg>
+        </span>
+        <span class="pill-black tag-student">Ученик
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="#fff" style="margin-left:6px"><path d="M1 1l5 12 2-5 5-2L1 1z"/></svg>
+        </span>
+        <div class="report-mini">
+          <div class="rm-t">Отчёт родителю · неделя 6</div>
+          <div class="rm-row"><span><i class="sq sq-g"></i>Закрыто тем</span><b>11</b></div>
+          <div class="rm-row"><span><i class="sq sq-y"></i>В работе</span><b>4</b></div>
+          <div class="rm-row"><span><i class="sq sq-r"></i>Красная зона</span><b>2</b></div>
+          <div class="rm-row"><span>Балл пробника</span><b>58&nbsp;→&nbsp;67</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="pain-card">
+        <div>
+          <h2>23:40. Ещё двенадцать работ в&nbsp;очереди</h2>
+          <p>
+            Каждому ученику нужен разбор именно его ошибок — это два-три часа работы, которые никто
+            не оплачивает. Проверка ДЗ — самая дорогая бесплатная работа репетитора.
+            Мы её забираем: AI разбирает работы, вы просматриваете готовый фидбек и жмёте «отправить».
+          </p>
+        </div>
+        <div class="pain-chat">
+          <div class="pb pb-in">Фото тетради, 3 задачи<span>Маша · 22:58</span></div>
+          <div class="pb pb-in">Фото тетради, вариант 14<span>Тимур · 23:12</span></div>
+          <div class="pb pb-out">Разобрано: 2 работы, 1 — «нужен ваш взгляд». Фидбек готов к отправке<span>Тьютор AI · 23:15</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Как это работает</span>
+        <h2>Три шага между «сдал» и&nbsp;«разобрано»</h2>
+      </div>
+      <div class="grid grid-3">
+        <div class="card">
+          <span class="bignum">01</span>
+          <h3>Ученик присылает фото решения</h3>
+          <p class="muted">В Telegram-бот или веб-кабинет. Рукопись с дробями, векторами и графиками — наш основной сценарий, а не исключение.</p>
+        </div>
+        <div class="card">
+          <span class="bignum">02</span>
+          <h3>AI разбирает работу за минуты</h3>
+          <p class="muted">Балл по критериям, тип каждой ошибки — вычислительная или концептуальная, привязка к теме кодификатора. Сомнительные работы — в очередь «нужен ваш взгляд».</p>
+        </div>
+        <div class="card">
+          <span class="bignum">03</span>
+          <h3>Вы просматриваете и отправляете</h3>
+          <p class="muted">Фидбек каждому ученику уже написан — правите тон, жмёте «отправить». Слабые темы автоматически попадают в следующее ДЗ.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap">
+      <div class="photo-strip">
+        <img src="/img/study.webp" alt="Ученик решает домашнее задание по математике в тетради" loading="lazy" />
+        <span class="chip chip-tl">Фото отправлено в 22:58</span>
+        <span class="pill-black chip-br">Разобрано за 2:47 — балл 1 из 2</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Что внутри</span>
+        <h2>Четыре инструмента, один кабинет</h2>
+      </div>
+      <div class="grid grid-2">
+        <div class="card">
+          <span class="icon icon-blue">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8a2 2 0 0 1 2-2h1.6a2 2 0 0 0 1.7-.9l.8-1.2A2 2 0 0 1 10.8 3h2.4a2 2 0 0 1 1.7.9l.8 1.2a2 2 0 0 0 1.7.9H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8Z"/><circle cx="12" cy="12.5" r="3.5"/></svg>
+          </span>
+          <h3>AI-проверка рукописных ДЗ</h3>
+          <p class="muted">Разбор по критериям ФИПИ с баллом и объяснением. Классификация ошибок: перепутал знак — одно, не применил закон — другое. Видно, к какой теме возвращать ученика.</p>
+        </div>
+        <div class="card">
+          <span class="icon icon-lime">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 21l1.9-5.4A8 8 0 1 1 21 12Z"/><path d="M9 10h6M9 13.5h4"/></svg>
+          </span>
+          <h3>Сократовский диалог с учеником</h3>
+          <p class="muted">Между занятиями ученик не остаётся один: чат ведёт его к решению наводящими вопросами. Готовое решение открывается только после проверки ДЗ — списать не получится.</p>
+        </div>
+        <div class="card">
+          <span class="icon icon-pink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M21 20H3"/></svg>
+          </span>
+          <h3>Отчёт родителю — автоматически</h3>
+          <p class="muted">Каждую неделю родитель получает в Telegram карту тем, динамику балла и активность ребёнка. Вопрос «а есть ли прогресс?» закрыт навсегда.</p>
+        </div>
+        <div class="card">
+          <span class="icon icon-ink">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2V5Z"/><path d="M4 19a2 2 0 0 1 2-2h13"/><path d="M9 7h6"/></svg>
+          </span>
+          <h3>Конструктор ДЗ за 5 минут</h3>
+          <p class="muted">Открытый банк заданий с привязкой к кодификатору + ваш собственный архив + генерация похожих задач одним кликом. Отправка ученику — по ссылке, в бот или на почту.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dots">
+    <div class="wrap free-grid">
+      <div class="collage2">
+        <div class="sheet2 sheet2-pink"></div>
+        <div class="sheet2 sheet2-blue">
+          <div class="sched-card">
+            <i class="accent"></i>
+            <div class="sc-in">
+              <div class="sc-top"><b>Маша Иванова</b><span>16:00–17:00</span></div>
+              <div class="sc-sub">Математика · ОГЭ</div>
+            </div>
+          </div>
+          <span class="pill-black pb-lesson">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#fff" style="margin-right:8px"><path d="M13 2 4.8 13.2h5L9.6 22l8.6-11.8h-5.2L13 2Z"/></svg>
+            Новое ДЗ
+            <svg class="cursor" width="22" height="22" viewBox="0 0 24 24"><path d="M4 2l7 18 2.5-7.5L21 10 4 2z" fill="#fff" stroke="#0d0e12" stroke-width="1.6"/></svg>
+          </span>
+          <span class="ava2"><img src="/img/student.webp" alt="Ученица" width="88" height="88" loading="lazy" /></span>
+          <div class="cal">
+            <div class="cal-row cal-head"><span>Пн</span><span>Вт</span><span>Ср</span><span>Чт</span><span>Пт</span><span>Сб</span><span>Вс</span></div>
+            <div class="cal-row"><span>13</span><span>14</span><span class="sel">15</span><span>16</span><span>17</span><span>18</span><span>19</span></div>
+          </div>
+        </div>
+        <div class="bubble-blue">Домашка готова — отправил Маше</div>
+        <div class="file-chip fc-beige">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#0d0e12" stroke-width="1.7" stroke-linecap="round"><path d="M6 3h8l4 4v14H6V3Z"/><path d="M14 3v4h4"/><path d="M9 13h6M9 16.5h4"/></svg>
+          <em>Вариант_14.pdf</em>
+          <svg class="cursor fc-cursor" width="22" height="22" viewBox="0 0 24 24"><path d="M4 2l7 18 2.5-7.5L21 10 4 2z" fill="#fff" stroke="#0d0e12" stroke-width="1.6"/></svg>
+        </div>
+        <div class="file-chip fc-blue">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#2b5fd6" stroke-width="1.7" stroke-linecap="round"><path d="M6 3h8l4 4v14H6V3Z"/><path d="M14 3v4h4"/><circle cx="12" cy="14" r="3"/></svg>
+          <em>Разбор_ошибок.pdf</em>
+        </div>
+      </div>
+      <div>
+        <span class="eyebrow">Бесплатная база</span>
+        <h2>Ученики, конструктор ДЗ и первые проверки — бесплатно</h2>
+        <p class="muted" style="font-size:18px">
+          Не надо оплачивать тариф, чтобы начать: карточки учеников, сбор ДЗ из банка задач,
+          10 AI-проверок в месяц и отчёт родителю по одному ученику доступны сразу.
+          AI-слой без лимитов подключите, когда почувствуете экономию времени.
+        </p>
+        <a class="btn" href={EARLY_ACCESS_URL}>Начать бесплатно</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section dots" id="tarify" style="padding-top:24px">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="eyebrow">Тарифы</span>
+        <h2>Дешевле одного вашего занятия</h2>
+        <p class="muted">Час репетитора стоит 1500–2500 ₽. Тьютор AI возвращает 2–3 часа в неделю — окупается первой же неделей.</p>
+      </div>
+      <div class="grid grid-3">
+        <div class="card price">
+          <h3>Бесплатно</h3>
+          <div class="amount">0 ₽</div>
+          <div class="muted">навсегда</div>
+          <ul>
+            <li>Ученики и группы</li>
+            <li>Конструктор ДЗ из банка задач</li>
+            <li>10 AI-проверок в месяц</li>
+            <li>Отчёт родителю по 1 ученику</li>
+          </ul>
+          <a class="btn btn-ghost" href={EARLY_ACCESS_URL}>В список раннего доступа</a>
+        </div>
+        <div class="card price featured">
+          <span class="hit pill-black">Выбор запуска</span>
+          <h3>Про-10</h3>
+          <div class="amount">990 ₽<small>/мес</small></div>
+          <div class="muted">до 10 учеников · первый месяц 149 ₽</div>
+          <ul>
+            <li>Безлимитная AI-проверка ДЗ</li>
+            <li>Сократовский чат для учеников</li>
+            <li>Отчёты родителям по всем ученикам</li>
+            <li>Генерация похожих задач</li>
+            <li>Очередь «нужен ваш взгляд»</li>
+          </ul>
+          <a class="btn" href={EARLY_ACCESS_URL}>Получить ранний доступ</a>
+        </div>
+        <div class="card price">
+          <h3>Про-20</h3>
+          <div class="amount">1790 ₽<small>/мес</small></div>
+          <div class="muted">до 20 учеников · годовой −30%</div>
+          <ul>
+            <li>Всё из «Про-10»</li>
+            <li>Группы и потоки</li>
+            <li>Приоритетная проверка</li>
+            <li>Прямая линия с командой</li>
+          </ul>
+          <a class="btn btn-ghost" href={EARLY_ACCESS_URL}>Получить ранний доступ</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="wrap" style="max-width:820px">
+      <div class="sec-head">
+        <span class="eyebrow">FAQ</span>
+        <h2>Вопросы и ответы</h2>
+      </div>
+      {faq.map((f) => (
+        <details>
+          <summary>{f.q}</summary>
+          <p class="muted">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:24px">
+    <div class="wrap">
+      <div class="cta-box" style="text-align:center; padding:56px 36px">
+        <h2>Перестаньте проверять до полуночи</h2>
+        <p class="muted" style="max-width:540px; margin-left:auto; margin-right:auto">{LAUNCH_NOTE}</p>
+        <a class="btn" href={EARLY_ACCESS_URL}>Получить ранний доступ</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding: 84px 0 96px; }
+  .hero-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 64px; align-items: center; }
+  .lead { font-size: 19px; color: var(--ink-2); max-width: 540px; }
+  .cta-row { display: flex; gap: 22px; margin-top: 32px; flex-wrap: wrap; align-items: center; }
+  .launch-note { font-size: 14px; line-height: 1.5; color: var(--ink-2); font-weight: 500; }
+
+  /* ---------- коллаж в духе референса ---------- */
+  .collage { position: relative; height: 480px; }
+  .sheet { position: absolute; border-radius: 6px; }
+  .sheet-lime {
+    width: 46%; height: 74%; left: 0; top: 8%;
+    background: var(--lime); transform: rotate(-7deg);
+    padding: 26px;
+  }
+  .sheet-blue {
+    width: 74%; height: 86%; right: 0; top: 4%;
+    background: var(--blue); transform: rotate(3.5deg);
+    padding: 28px; display: flex; flex-direction: column; justify-content: center;
+  }
+  .hand { font-family: var(--hand); font-weight: 600; }
+  .hand-formula { font-size: 30px; color: #0d0e12; display: block; }
+  .hand-white { font-size: 28px; color: #fff; display: block; margin-top: 16px; margin-left: 8px; transform: rotate(-2deg); }
+  .doodle { width: 110px; margin-top: 14px; }
+
+  .check-card { background: #fff; border-radius: 16px; padding: 18px 20px; box-shadow: 0 18px 48px rgba(13,14,18,.22); transform: rotate(-3.5deg); }
+  .cc-head { display: flex; justify-content: space-between; align-items: center; font-weight: 700; font-size: 14.5px; margin-bottom: 10px; }
+  .cc-badge { background: #eaf7ee; color: var(--good); font-size: 12.5px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+  .cc-row { display: flex; gap: 10px; align-items: flex-start; font-size: 13.5px; color: var(--ink-2); padding: 7px 0; border-top: 1px solid var(--line); line-height: 1.45; }
+  .cc-row i { flex: 0 0 14px; height: 14px; border-radius: 4px; margin-top: 3px; }
+  .cc-row i.ok { background: var(--good); }
+  .cc-row i.half { background: var(--warn); }
+  .cc-score { display: flex; justify-content: space-between; font-size: 14px; font-weight: 700; margin-top: 10px; padding-top: 10px; border-top: 1.5px solid var(--ink); }
+
+  .ava { position: absolute; border-radius: 999px; overflow: hidden; border: 4px solid #fff; box-shadow: 0 12px 32px rgba(13,14,18,.22); z-index: 3; }
+  .ava img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .ava-tutor { width: 92px; height: 92px; left: 5%; top: -8%; }
+  .ava-student { width: 108px; height: 108px; left: 16%; top: -3%; }
+
+  .photo-strip { position: relative; }
+  .photo-strip img { display: block; width: 100%; border-radius: var(--r); }
+  .chip-tl { position: absolute; top: 24px; left: 24px; }
+  .chip-br { position: absolute; bottom: 24px; right: 24px; font-size: 14.5px; }
+
+  .tag-tutor { position: absolute; left: 0%; top: 14%; transform: rotate(-6deg); display: inline-flex; align-items: center; z-index: 4; }
+  .tag-student { position: absolute; right: 4%; bottom: 4%; transform: rotate(3deg); display: inline-flex; align-items: center; }
+  .report-mini {
+    position: absolute; left: -3%; bottom: -6%; width: 250px;
+    background: #fff; border-radius: 16px; padding: 18px; font-size: 13.5px;
+    box-shadow: 0 18px 48px rgba(13,14,18,.16); transform: rotate(-2deg);
+  }
+  .rm-t { font-weight: 800; margin-bottom: 8px; font-size: 13.5px; }
+  .rm-row { display: flex; justify-content: space-between; align-items: center; padding: 4px 0; color: var(--ink-2); }
+  .rm-row b { color: var(--ink); }
+  .sq { display: inline-block; width: 11px; height: 11px; border-radius: 3px; margin-right: 8px; }
+  .sq-g { background: var(--good); } .sq-y { background: #eab308; } .sq-r { background: var(--bad); }
+
+  /* ---------- коллаж «бесплатная база» (референс: расписание/календарь) ---------- */
+  .free-grid { display: grid; grid-template-columns: 1.02fr .98fr; gap: 72px; align-items: center; }
+  .collage2 { position: relative; height: 470px; }
+  .sheet2 { position: absolute; border-radius: 8px; }
+  .sheet2-pink { width: 72%; height: 82%; left: 14%; top: 6%; background: var(--pink); transform: rotate(6deg); }
+  .sheet2-blue { width: 78%; height: 88%; left: 2%; top: 2%; background: var(--blue); transform: rotate(-3deg); padding: 30px; }
+  .sched-card { display: flex; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 14px 36px rgba(13,14,18,.2); max-width: 330px; }
+  .sched-card .accent { width: 8px; background: var(--lime); flex: 0 0 auto; }
+  .sc-in { padding: 14px 18px; flex: 1; }
+  .sc-top { display: flex; justify-content: space-between; gap: 16px; font-size: 15.5px; }
+  .sc-sub { color: var(--ink-2); font-size: 13.5px; margin-top: 2px; }
+  .pb-lesson { display: inline-flex; align-items: center; margin-top: 22px; position: relative; font-size: 15px; padding: 12px 20px; }
+  .pb-lesson .cursor { position: absolute; right: -14px; bottom: -14px; }
+  .ava2 { position: absolute; right: 8%; top: 22%; width: 88px; height: 88px; border-radius: 999px; overflow: hidden; border: 4px solid #fff; box-shadow: 0 12px 32px rgba(13,14,18,.25); }
+  .ava2 img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .cal { background: #cfe0fb; border-radius: 14px; padding: 16px 18px; margin-top: 26px; max-width: 360px; }
+  .cal-row { display: grid; grid-template-columns: repeat(7, 1fr); text-align: center; gap: 4px; font-size: 14.5px; font-weight: 600; }
+  .cal-head { color: #5b729b; font-size: 12.5px; margin-bottom: 8px; font-weight: 700; }
+  .cal-row .sel { background: var(--blue); color: #fff; border-radius: 9px; padding: 3px 0; }
+  .bubble-blue { position: absolute; right: -2%; top: 2%; background: var(--blue); color: #fff; font-size: 14.5px; font-weight: 600; padding: 12px 18px; border-radius: 16px; border-bottom-left-radius: 4px; box-shadow: 0 12px 30px rgba(43,95,214,.35); }
+  .file-chip { position: absolute; text-align: center; }
+  .file-chip svg { width: 34px; height: 34px; display: block; margin: 0 auto; }
+  .file-chip em { display: block; font-style: normal; font-size: 12.5px; font-weight: 600; margin-top: 34px; }
+  .fc-beige { right: 6%; bottom: 6%; }
+  .fc-beige svg { background: #f5e9cf; border-radius: 18px; padding: 22px; width: 78px; height: 78px; }
+  .fc-blue { right: 26%; bottom: -4%; }
+  .fc-blue svg { background: #e3edff; border-radius: 18px; padding: 22px; width: 78px; height: 78px; }
+  .fc-cursor { position: absolute !important; right: -8px; bottom: 34px; width: 22px !important; height: 22px !important; background: none !important; padding: 0 !important; }
+
+  /* ---------- болевой блок: большая синяя карта ---------- */
+  .pain-card {
+    background: var(--blue); color: #fff; border-radius: var(--r);
+    padding: 56px; display: grid; grid-template-columns: 1.1fr .9fr; gap: 48px; align-items: center;
+  }
+  .pain-card h2 { color: #fff; }
+  .pain-card p { color: #d7e2ff; font-size: 17.5px; }
+  .pain-chat { max-width: 460px; }
+  .pb { border-radius: 14px; padding: 12px 16px; margin: 10px 0; font-size: 14.5px; line-height: 1.45; }
+  .pb span { display: block; font-size: 11.5px; opacity: .65; margin-top: 3px; }
+  .pb-in { background: rgba(255,255,255,.14); color: #fff; max-width: 82%; }
+  .pb-out { background: #fff; color: var(--ink); margin-left: auto; max-width: 88%; }
+
+  @media (max-width: 900px) {
+    .hero { padding: 48px 0 64px; }
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .collage { height: 420px; }
+    .pain-card { grid-template-columns: 1fr; padding: 32px; }
+    .free-grid { grid-template-columns: 1fr; gap: 48px; }
+    .collage2 { height: 430px; }
+  }
+</style>

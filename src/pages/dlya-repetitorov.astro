@@ -1,0 +1,27 @@
+---
+import Base from '../layouts/Base.astro';
+import HubPosts from '../components/HubPosts.astro';
+import CtaBox from '../components/CtaBox.astro';
+---
+<Base
+  title="Репетиторам — инструменты, AI и практика преподавания | Тьютор AI"
+  description="Хаб для репетиторов: как проверять ДЗ быстрее, нейросети в работе преподавателя, учёт учеников, цены и поиск учеников, методика. Практика без воды."
+  crumbs={[{ name: 'Главная', href: '/' }, { name: 'Репетиторам', href: '/dlya-repetitorov' }]}
+>
+  <div class="wrap section">
+    <h1>Репетиторам</h1>
+    <p class="lead muted" style="max-width:700px">
+      Всё, что съедает ваше время вне занятий: проверка ДЗ, организация учеников, общение с родителями,
+      поиск новых учеников. Разбираем с цифрами и инструментами — включая нейросети, которые уже реально работают.
+    </p>
+    <h2>Темы раздела</h2>
+    <div class="grid grid-3" style="margin-top:16px">
+      <div class="card"><span class="bignum">01</span><h3>Нейросети в работе</h3><p class="muted">Проверка ДЗ, генерация задач, планы уроков — что делегировать AI уже сегодня.</p></div>
+      <div class="card"><span class="bignum">02</span><h3>Проверка ДЗ</h3><p class="muted">Системы проверки, обратная связь, работа над ошибками.</p></div>
+      <div class="card"><span class="bignum">03</span><h3>Бизнес репетитора</h3><p class="muted">Ученики, цены, налоги, удержание, отчёты родителям.</p></div>
+    </div>
+    <h2>Свежие материалы</h2>
+    <HubPosts hub="dlya-repetitorov" />
+    <CtaBox variant="trial" />
+  </div>
+</Base>
