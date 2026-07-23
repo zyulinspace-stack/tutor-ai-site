@@ -2,7 +2,7 @@
 import '@fontsource-variable/unbounded';
 import '@fontsource-variable/onest';
 import '@fontsource-variable/caveat';
-import { SITE_NAME, SITE_URL, SITE_DESCRIPTION, EARLY_ACCESS_URL } from '../config.js';
+import { SITE_NAME, SITE_URL, SITE_DESCRIPTION, EARLY_ACCESS_URL, LEGAL_NAME, LEGAL_INN, LEGAL_OGRNIP, LEGAL_EMAIL, OFERTA_URL, PRIVACY_URL } from '../config.js';
 
 interface Crumb { name: string; href: string }
 interface Props {
@@ -105,9 +105,14 @@ const allSchema = schema ? baseSchema.concat(Array.isArray(schema) ? schema : [s
           <a href={EARLY_ACCESS_URL}>Войти в кабинет</a>
           <a href="/#tarify">Тарифы</a>
           <a href="/#faq">Вопросы и ответы</a>
+          <a href={OFERTA_URL}>Публичная оферта</a>
+          <a href={PRIVACY_URL}>Политика конфиденциальности</a>
         </div>
       </div>
-      <div class="wrap f-bottom">© 2026 {SITE_NAME}</div>
+      <div class="wrap f-bottom">
+        <p class="f-req">{LEGAL_NAME} · ИНН {LEGAL_INN} · ОГРНИП {LEGAL_OGRNIP} · {LEGAL_EMAIL}</p>
+        <p class="f-copy">© 2026 {SITE_NAME}</p>
+      </div>
     </footer>
   </body>
 </html>
@@ -272,6 +277,8 @@ const allSchema = schema ? baseSchema.concat(Array.isArray(schema) ? schema : [s
   .f-muted { font-size: 15px; max-width: 340px; color: var(--ink-2); }
   .logo-f { margin-bottom: 14px; }
   .f-bottom { border-top: 1px solid var(--line); padding-top: 18px; padding-bottom: 28px; font-size: 13.5px; color: var(--ink-3); }
+  .f-req { margin: 0 0 4px; }
+  .f-copy { margin: 0; }
 
   @media (max-width: 900px) {
     h1 { font-size: 34px; }
