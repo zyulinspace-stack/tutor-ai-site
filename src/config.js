@@ -11,10 +11,14 @@ export const SITE_TAGLINE = 'AI-проверка домашних заданий
 export const SITE_DESCRIPTION =
   'Тьютор AI проверяет рукописные ДЗ по математике и физике за минуты, ведёт ученика наводящими вопросами вместо готовых ответов и присылает родителям еженедельный отчёт о прогрессе.';
 
-// Куда ведёт CTA до запуска продукта (пре-лонч: ранний доступ).
 export const TELEGRAM_CHANNEL = 'https://t.me/REPLACE_ME_channel'; // ← канал проекта
-export const EARLY_ACCESS_URL = TELEGRAM_CHANNEL; // позже: /signup
 
-export const LAUNCH_NOTE = 'Запуск — сентябрь 2026. Первым 100 репетиторам — 3 месяца тарифа «Про» бесплатно.';
+// Кабинет: вход и оплата. Кнопки лендинга ведут сюда.
+export const APP_URL = 'https://app.tyutor-ai.ru';
+export const START_URL = `${APP_URL}/login?next=/dashboard`; // попробовать бесплатно
+export const CHECKOUT_URL = `${APP_URL}/login?next=/pricing`; // сразу к тарифам и оплате
+export const EARLY_ACCESS_URL = START_URL; // обратная совместимость со старыми CTA
+
+export const LAUNCH_NOTE = 'Бесплатный тариф — навсегда. Про-10: первый месяц 149 ₽, дальше 990 ₽/мес. Отмена в любой момент.';
 
 export const AUTHOR_DEFAULT = 'Редакция Тьютор AI';

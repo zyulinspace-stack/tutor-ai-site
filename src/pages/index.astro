@@ -1,6 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import { SITE_NAME, EARLY_ACCESS_URL, LAUNCH_NOTE } from '../config.js';
+import { SITE_NAME, EARLY_ACCESS_URL, CHECKOUT_URL, LAUNCH_NOTE } from '../config.js';
 
 const faq = [
   {
@@ -20,8 +20,8 @@ const faq = [
     a: 'Базовые функции — бесплатно навсегда. AI-проверка и сократовский чат — от 990 ₽ в месяц (до 10 учеников), первый месяц — 149 ₽. Это меньше стоимости одного вашего занятия.',
   },
   {
-    q: 'Когда запуск?',
-    a: 'Сентябрь 2026 — к началу учебного года. Первым 100 репетиторам из списка раннего доступа — 3 месяца тарифа «Про» бесплатно и прямая линия с командой.',
+    q: 'Как начать?',
+    a: 'Сервис уже работает — можно начать бесплатно прямо сейчас, без списков ожидания. На бесплатном тарифе доступны ученики, конструктор ДЗ и 10 AI-проверок в месяц. Платные тарифы: Про-10 — 990 ₽/мес (первый месяц 149 ₽), Про-20 — 1790 ₽/мес.',
   },
 ];
 
@@ -50,8 +50,8 @@ const faqSchema = {
           Родителю — еженедельный отчёт. Вам — свободные вечера.
         </p>
         <div class="cta-row">
-          <a class="btn" href={EARLY_ACCESS_URL}>Попробовать</a>
-          <span class="launch-note">Запуск — сентябрь 2026.<br/>Первым 100 репетиторам — 3&nbsp;месяца «Про» бесплатно.</span>
+          <a class="btn" href={EARLY_ACCESS_URL}>Попробовать бесплатно</a>
+          <span class="launch-note">Бесплатный тариф — навсегда.<br/>Про-10 — первый месяц 149&nbsp;₽.</span>
         </div>
       </div>
 
@@ -258,7 +258,7 @@ const faqSchema = {
             <li>10 AI-проверок в месяц</li>
             <li>Отчёт родителю по 1 ученику</li>
           </ul>
-          <a class="btn btn-ghost" href={EARLY_ACCESS_URL}>В список раннего доступа</a>
+          <a class="btn btn-ghost" href={EARLY_ACCESS_URL}>Начать бесплатно</a>
         </div>
         <div class="card price featured">
           <span class="hit pill-black">Выбор запуска</span>
@@ -272,7 +272,7 @@ const faqSchema = {
             <li>Генерация похожих задач</li>
             <li>Очередь «нужен ваш взгляд»</li>
           </ul>
-          <a class="btn" href={EARLY_ACCESS_URL}>Получить ранний доступ</a>
+          <a class="btn" href={CHECKOUT_URL}>Оформить Про-10</a>
         </div>
         <div class="card price">
           <h3>Про-20</h3>
@@ -284,7 +284,7 @@ const faqSchema = {
             <li>Приоритетная проверка</li>
             <li>Прямая линия с командой</li>
           </ul>
-          <a class="btn btn-ghost" href={EARLY_ACCESS_URL}>Получить ранний доступ</a>
+          <a class="btn btn-ghost" href={CHECKOUT_URL}>Оформить Про-20</a>
         </div>
       </div>
     </div>
@@ -310,7 +310,7 @@ const faqSchema = {
       <div class="cta-box" style="text-align:center; padding:56px 36px">
         <h2>Перестаньте проверять до полуночи</h2>
         <p class="muted" style="max-width:540px; margin-left:auto; margin-right:auto">{LAUNCH_NOTE}</p>
-        <a class="btn" href={EARLY_ACCESS_URL}>Получить ранний доступ</a>
+        <a class="btn" href={CHECKOUT_URL}>Начать</a>
       </div>
     </div>
   </section>
