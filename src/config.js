@@ -11,7 +11,6 @@ export const SITE_TAGLINE = 'AI-проверка домашних заданий
 export const SITE_DESCRIPTION =
   'Тьютор AI проверяет рукописные ДЗ по математике и физике за минуты, ведёт ученика наводящими вопросами вместо готовых ответов и присылает родителям еженедельный отчёт о прогрессе.';
 
-export const TELEGRAM_CHANNEL = 'https://t.me/REPLACE_ME_channel'; // ← канал проекта
 
 // Кабинет: вход и оплата. Кнопки лендинга ведут сюда.
 export const APP_URL = 'https://app.tyutor-ai.ru';
